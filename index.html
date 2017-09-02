@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+  <title>Modal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  	#userImg{
+	    border-radius: 101px;
+	    width: 111px;
+	    height: 111px;
+	    border: 1px solid #000;
+  	}
+  	.user{
+	    display: table;
+	    margin: auto;
+  	}
+  	.user span{
+	    background-color: #9bd77d;
+	    padding: 2px 6px;
+	    border-radius: 10px;
+	    cursor: pointer;
+	    vertical-align: top;
+	    margin: 0px 0 0 -25px;
+  	}
+  	.error{
+			border: 1px solid #f00;
+		}
+  </style>
+</head>
+<body>
+	<br>
+	<div class="container">
+	  <!-- Trigger the modal with a button -->
+	  <button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#myModal">Open Modal</button>
+	  <!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title" style="font-weight: bold;">Sign Up</h4>
+	          <div class="user">
+		          <img id="userImg" src="defaultUser.png">
+		          <span id="uploadSign">+</span>
+	          </div>
+	          <input class="uplaodImg" type="file" style="display: none;">
+	        </div>
+          <form>
+		        <div class="modal-body">
+
+							<div class="form-group">
+								<label>User Name</label>
+								<input type="text" name="userName" class="form-control" placeholder="User Name">
+							</div>
+
+							<div class="form-group">
+								<label>Father Name</label>
+								<input type="text" name="fatherName" class="form-control" placeholder="Father Name">
+							</div>
+
+							<div class="form-group">
+								<label>Email</label>
+								<input type="email" name="email" class="form-control" placeholder="Email">
+							</div>
+
+							<div class="form-group">
+								<label>Password</label>
+			        	<input type="password" name="password" class="form-control" placeholder="Password">
+							</div>
+
+							<div class="form-group">
+								<label>Renter Password</label>
+			        	<input type="password" name="rPassword" class="form-control" placeholder="Password">
+							</div>
+
+							<div class="form-group">
+				        <div class="row">
+					        <div class="col-xs-5">
+										<label>Date Of Birth</label>
+					        	<input type="date" name="birthday" class="form-control">
+					        </div>
+					        <div class="col-xs-offset-1 col-xs-5">
+					        <label>Gender</label>
+		                	<select class="form-control">
+								        <option>Male</option>
+								        <option>Female</option>
+							      </select>
+					        </div>
+					       </div>
+			        </div>
+
+<!-- 			        <div class="form-group">
+				        <label>Gender</label>
+				        <div class="row">
+					        <div class="col-xs-6">
+					          <button class="form-control" type="button">Male</button>
+					        </div>
+					        <div class="col-xs-6">
+					          <button class="form-control" type="button">Female</button>
+					        </div>
+				        </div>
+		          </div> -->
+
+		          <div class="form-group">
+				        <div class="row">
+					        <div class="col-xs-5">
+					        	<label>Phone Number</label>
+					        	<input type="number" name="mobile" class="form-control" placeholder="Your Number">
+					        </div>
+					        <div class="col-xs-5 col-xs-offset-1">
+					        <label>Country</label>
+		                <select class="form-control">
+							        <option>India</option>
+							        <option>Germany</option>
+							        <option>Russia</option>
+							        <option>Japan</option>
+							      </select>
+					        </div>
+				        </div>
+		          </div>
+
+		        </div>
+		        <div class="modal-footer">
+		          <input type="submit" class="btn btn-primary" name="submit">
+		          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		        </div>
+				  </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+<script>
+	$(document).on("click", "#uploadSign", function() {
+    $(".uplaodImg").click();
+	});
+	function fasterPreview( uploader ) {
+		console.log(uploader.files)
+		console.log(uploader.files[0])
+	    if ( uploader.files && uploader.files[0] ){
+	          $('.user img').attr('src', window.URL.createObjectURL(uploader.files[0]) );
+	    }
+	}
+	$(document).on("change", ".uplaodImg", function(){
+	    fasterPreview( this );
+	});
+
+	$(document).on("submit",function(e){
+		e.preventDefault()
+		var userName=$("input[name='userName']").val();
+		var fatherName=$("input[name='fatherName']").val();
+		var email=$("input[name='email']").val();
+		var password=$("input[name='password']").val();
+		var rPassword=$("input[name='rPassword']").val();
+		var birthday=$("input[name='birthday']").val();
+		var mobile=$("input[name='mobile']").val();
+		if(userName == '' || !userName.match('^[a-zA-Z\\s]{3,25}$')){
+			$("input[name='userName']").addClass("error");
+		}
+		else{
+			$("input[name='userName']").removeClass("error");
+		}
+		if(fatherName == '' || !fatherName.match('^[a-zA-Z\\s]{3,25}$')){
+			$("input[name='fatherName']").addClass("error");
+		}
+		else{
+			$("input[name='fatherName']").removeClass("error");
+		}
+		if(email == '' || !email.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)){
+			$("input[name='email']").addClass("error");
+		}
+		else{
+			$("input[name='email']").removeClass("error");
+		}
+		if(password == '' || password.length < 8){
+			$("input[name='password']").addClass("error");
+		}
+		else{
+			$("input[name='password']").removeClass("error");
+		}
+		if(rPassword !== password){
+			$("input[name='rPassword']").addClass("error");
+		}
+		else{
+			$("input[name='rPassword']").removeClass("error");
+		}
+		if(birthday == ''){
+			$("input[name='birthday']").addClass("error");
+		}
+		else{
+			$("input[name='birthday']").removeClass("error");
+		}
+		if(mobile == '' || !mobile.match(/^\d{10}$/)){
+			$("input[name='mobile']").addClass("error");
+		}
+		else{
+			$("input[name='mobile']").removeClass("error");
+		}
+	});
+
+</script>
+</html>
